@@ -8,5 +8,6 @@ gemspec
 gem "rake", "~> 13.0"
 
 gem "minitest", "~> 5.0"
+gem "minitest-power_assert", "~> 0.3"
 
 gem "rubocop", "~> 1.21"

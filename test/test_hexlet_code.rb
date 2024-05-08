@@ -7,7 +7,17 @@ class TestHexletCode < Minitest::Test
     refute_nil ::HexletCode::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_that_it_generates_tag_with_content
+    element = HexletCode::Tag.build("div", src: "http://image.com", width: 120) { "content" }
+    assert {
+      element == "<div src=\"http://image.com\" width=\"120\">content</div>"
+    }
+  end
+
+  def test_that_it_generates_tag_without_content
+    element = HexletCode::Tag.build("br")
+    assert {
+      element != "<br />"
+    }
   end
 end
