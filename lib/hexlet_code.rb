@@ -18,4 +18,9 @@ module HexletCode
       "<#{tag}#{attrs}#{block_given? ? ">#{yield}</#{tag}>" : " />"}"
     end
   end
+
+  def self.form_for(_data = {}, url = "#")
+    attrs = { action: url, method: "post" }
+    Tag.build("form", attrs) { "" }
+  end
 end
