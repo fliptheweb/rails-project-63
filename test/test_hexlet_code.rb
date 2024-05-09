@@ -42,11 +42,11 @@ class TestHexletCode < Minitest::Test
 
     element = HexletCode.form_for user do |f|
       f.input :name
-      # f.input :job, as: :text
+      f.input :job, as: :text
     end
 
     assert {
-      element == "<form action=\"#\" method=\"post\"><input name=\"name\" type=\"test\" value=\"rob\" /></form>"
+      element == "<form action=\"#\" method=\"post\"><input name=\"name\" type=\"text\" value=\"rob\" /></form>"
     }
   end
 end

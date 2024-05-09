@@ -8,14 +8,14 @@ module HexletCode
   ELEMENTS = {
     default: {
       tag: "input",
+      value_position: :attribute,
       attributes: {
-        type: "text",
-        name: "",
-        value: ""
+        type: "text"
       }
     },
     text: {
       tag: "textarea",
+      value_position: :inside,
       attributes: {
         cols: 20,
         rows: 40
@@ -23,6 +23,7 @@ module HexletCode
     },
     checkbox: {
       tag: "input",
+      value_position: :attribute,
       attributes: {
         type: "checkbox"
       }
@@ -50,18 +51,18 @@ module HexletCode
     Tag.build("form", attributes) { yield(self) if block_given? }
   end
 
-  def self.input(_name, attributes = {})
-    puts @fields_data
-    element = ELEMENTS[attributes.fetch(:as, :default)]
+  def self.input(field_name, attributes = {})
+    as = attributes.fetch(:as, :default)
+    attributes.delete(:as)
+    element = ELEMENTS[as]
+    value = @fields_data.public_send(field_name)
     tag = element[:tag]
-    # attributes = case as
-    # when :default
-    #   { }
-    # when
+    attrs = element[:attributes].merge(attributes).merge({ name: field_name.to_s })
+    attrs = attrs.merge({ value: }) if element[:value_position] == :attribute
 
-    # else
-
-    # end
-    Tag.build(tag, attributes)
+    # FIXME: how to optionaly pass block?
+    Tag.build(tag, attrs) do
+      value if element[:value_position] == :inside
+    end
   end
 end
