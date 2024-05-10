@@ -46,7 +46,7 @@ class TestHexletCode < Minitest::Test
     end
 
     assert {
-      element == "<form action=\"#\" method=\"post\"><input name=\"name\" type=\"text\" value=\"rob\" /></form>"
+      element == "<form action=\"#\" method=\"post\"><input type=\"text\" name=\"name\" value=\"rob\" /><textarea cols=\"20\" rows=\"40\" name=\"job\">hexlet</textarea></form>"
     }
   end
 end
