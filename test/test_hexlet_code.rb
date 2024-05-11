@@ -58,7 +58,8 @@ class TestHexletCode < Minitest::Test
   def test_that_it_generates_form_with_inputs
     user = User.new name: 'rob', job: 'hexlet', gender: 'm'
     rendered = '<form action="#" method="post"><label for="name">Name</label><input type="text" name="name"' \
-      'value="rob" /><label for="job">Job</label><textarea cols="20" rows="40" name="job">hexlet</textarea></form>'
+               'value="rob" /><label for="job">Job</label><textarea cols="20" rows="40" name="job">hexlet</textarea>' \
+               '</form>'
 
     element = HexletCode.form_for user do |f|
       f.input :name

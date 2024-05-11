@@ -11,9 +11,15 @@ Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: single_quotes
 
+Layout/LineEndStringConcatenationIndentation:
+  Enabled: true
+
 Metrics/AbcSize:
   Enabled: true
   Max: 15
+
+Metrics/MethodLength:
+  Enabled: false
 
 Style/BlockDelimiters:
   Enabled: true

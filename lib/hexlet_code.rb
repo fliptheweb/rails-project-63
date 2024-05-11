@@ -53,7 +53,7 @@ module HexletCode
       @all = ''
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def input(field_name, attributes = {})
       element = ELEMENTS[attributes.fetch(:as, :default)]
       attributes.delete(:as)
@@ -71,7 +71,7 @@ module HexletCode
                 @formatter.build(element[:tag], attrs)
               end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
 
     def submit(text = 'Save')
       @all += @formatter.build(:input, { type: 'submit', value: text })
