@@ -21,7 +21,7 @@ module HexletCode
   # TODO: formatting
   def self.form_for(fields_data = {}, url = "#")
     attributes = { action: url, method: "post" }
-    content = FormContent.new(fields_data)
+    content = FormContent.new(fields_data, Tag)
     yield(content) if block_given?
     Tag.build("form", attributes) { content if block_given? }
   end

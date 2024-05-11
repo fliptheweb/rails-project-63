@@ -27,7 +27,8 @@ class FormContent
     }
   }
 
-  def initialize(fields_data)
+  def initialize(fields_data, formatter)
+    @formatter = formatter
     @fields_data = fields_data
     @all = ""
   end
@@ -41,15 +42,19 @@ class FormContent
     tag = element[:tag]
     attrs = element[:attributes].merge(attributes).merge({ name: field_name.to_s })
 
-    @all += HexletCode::Tag.build("label", { for: field_name }) { field_name.capitalize }
+    @all += @formatter.build("label", { for: field_name }) { field_name.capitalize }
 
     # FIXME: how to optionaly pass block to function?
     @all += if element[:value_position] == :inside
-              HexletCode::Tag.build(tag, attrs) { value }
+              @formatter.build(tag, attrs) { value }
             elsif element[:value_position] == :attribute
               attrs = attrs.merge({ value: })
-              HexletCode::Tag.build(tag, attrs)
+              @formatter.build(tag, attrs)
             end
+  end
+
+  def submit(text = "Save")
+    @all += @formatter.build(:input, { type: "submit", value: text })
   end
 
   def to_s
