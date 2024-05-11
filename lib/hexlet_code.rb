@@ -6,7 +6,7 @@ require_relative 'hexlet_code/version'
 module HexletCode
   class Error < StandardError; end
 
-  # How to properly load the module?
+  # How to properly load the module? Tag is unavailable after
   # autoload(:Tag, "./lib/hexlet_code/tag.rb")
   # Tag creation
   module Tag
