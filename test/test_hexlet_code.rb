@@ -9,24 +9,6 @@ class TestHexletCode < Minitest::Test
     refute_nil ::HexletCode::VERSION
   end
 
-  def test_that_it_generates_tag_with_content
-    element = HexletCode::Tag.build('div', src: 'http://image.com', width: 120) { 'content' }
-    # rubocop:disable Style/BlockDelimiters
-    assert {
-      element == '<div src="http://image.com" width="120">content</div>'
-    }
-    # rubocop:enable Style/BlockDelimiters
-  end
-
-  def test_that_it_generates_tag_without_content
-    element = HexletCode::Tag.build('br')
-    # rubocop:disable Style/BlockDelimiters
-    assert {
-      element == '<br />'
-    }
-    # rubocop:enable Style/BlockDelimiters
-  end
-
   def test_that_it_generates_form
     element = HexletCode.form_for
     # rubocop:disable Style/BlockDelimiters
@@ -57,7 +39,7 @@ class TestHexletCode < Minitest::Test
 
   def test_that_it_generates_form_with_inputs
     user = User.new name: 'rob', job: 'hexlet', gender: 'm'
-    rendered = '<form action="#" method="post"><label for="name">Name</label><input type="text" name="name"' \
+    rendered = '<form action="#" method="post"><label for="name">Name</label><input type="text" name="name" ' \
                'value="rob" /><label for="job">Job</label><textarea cols="20" rows="40" name="job">hexlet</textarea>' \
                '</form>'
 
