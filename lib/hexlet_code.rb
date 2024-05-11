@@ -56,10 +56,10 @@ module HexletCode
       as = attributes.fetch(:as, :default)
       attributes.delete(:as)
       element = ELEMENTS[as]
+      tag = element[:tag]
       # Why do we need to use public_send here but not just get the value?
       value = @fields_data.public_send(field_name)
-      tag = element[:tag]
-      attrs = element[:attributes].merge(attributes).merge({ name: field_name.to_s })
+      attrs = element[:attributes].merge(attributes, { name: field_name.to_s })
 
       @all += @formatter.build("label", { for: field_name }) { field_name.capitalize }
 
@@ -82,10 +82,13 @@ module HexletCode
   end
 
   # TODO: formatting
-  def self.form_for(fields_data = {}, url = "#")
-    attributes = { action: url, method: "post" }
+  def self.form_for(fields_data = {}, attributes = {})
+    url = (attributes.is_a?(Hash) ? attributes.fetch(:url, "#") : attributes)
+    attrs = { action: url, method: "post" }
+    attrs.merge!(attributes) if attributes.is_a?(Hash)
+    attrs.delete(:url)
     content = FormContent.new(fields_data, Tag)
     yield(content) if block_given?
-    Tag.build("form", attributes) { content if block_given? }
+    Tag.build("form", attrs) { content if block_given? }
   end
 end

@@ -61,7 +61,9 @@ class TestHexletCode < Minitest::Test
 
   def test_that_it_generates_form_with_submit
     rendered = "<form action=\"#\" method=\"post\"><input type=\"submit\" value=\"Save\" /></form>"
-    element = HexletCode.form_for({}, &:submit)
+    element = HexletCode.form_for({}) do |f|
+      f.submit
+    end
 
     assert {
       element == rendered
