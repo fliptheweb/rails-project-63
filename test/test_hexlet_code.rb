@@ -23,17 +23,25 @@ class TestHexletCode < Minitest::Test
     }
   end
 
-  def test_that_it_generates_form_with_url
+  def test_that_it_generates_form
     element = HexletCode.form_for
     assert {
       element == "<form action=\"#\" method=\"post\"></form>"
     }
   end
 
-  def test_that_it_generates_form
+  def test_that_it_generates_form_with_url
     element = HexletCode.form_for(nil, "http://google.com")
     assert {
       element == "<form action=\"http://google.com\" method=\"post\"></form>"
+    }
+  end
+
+  def test_that_it_generates_form_with_options
+    element = HexletCode.form_for(nil, url: "/profile", method: :get, class: "hexlet-form")
+
+    assert {
+      element == "<form action=\"/profile\" method=\"get\" class=\"hexlet-form\"></form>"
     }
   end
 
