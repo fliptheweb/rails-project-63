@@ -40,12 +40,14 @@ class FormContent
     value = @fields_data.public_send(field_name)
     tag = element[:tag]
     attrs = element[:attributes].merge(attributes).merge({ name: field_name.to_s })
-    attrs = attrs.merge({ value: }) if element[:value_position] == :attribute
+
+    @all += HexletCode::Tag.build("label", { for: field_name }) { field_name.capitalize }
 
     # FIXME: how to optionaly pass block to function?
     @all += if element[:value_position] == :inside
               HexletCode::Tag.build(tag, attrs) { value }
-            else
+            elsif element[:value_position] == :attribute
+              attrs = attrs.merge({ value: })
               HexletCode::Tag.build(tag, attrs)
             end
   end
