@@ -53,11 +53,10 @@ module HexletCode
       @all = ''
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def input(field_name, attributes = {})
-      as = attributes.fetch(:as, :default)
+      element = ELEMENTS[attributes.fetch(:as, :default)]
       attributes.delete(:as)
-      element = ELEMENTS[as]
-      tag = element[:tag]
       # Why do we need to use public_send here but not just get the value?
       value = @fields_data.public_send(field_name)
       attrs = element[:attributes].merge(attributes, { name: field_name.to_s })
@@ -66,12 +65,13 @@ module HexletCode
 
       # FIXME: how to optionaly pass block to function?
       @all += if element[:value_position] == :inside
-                @formatter.build(tag, attrs) { value }
+                @formatter.build(element[:tag], attrs) { value }
               elsif element[:value_position] == :attribute
                 attrs = attrs.merge({ value: })
-                @formatter.build(tag, attrs)
+                @formatter.build(element[:tag], attrs)
               end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def submit(text = 'Save')
       @all += @formatter.build(:input, { type: 'submit', value: text })
