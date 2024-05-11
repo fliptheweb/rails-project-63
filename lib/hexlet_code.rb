@@ -2,6 +2,7 @@
 
 require_relative "hexlet_code/version"
 
+# Module for build forms
 module HexletCode
   class Error < StandardError; end
 
@@ -44,7 +45,7 @@ module HexletCode
           type: :checkbox
         }
       }
-    }
+    }.freeze
 
     def initialize(fields_data, formatter)
       @formatter = formatter
